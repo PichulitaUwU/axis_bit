@@ -1,30 +1,27 @@
-/* =========================
-   CARRITO - TIENDA WEB
-========================= */
+// ===== CONFIGURACIÓN WHATSAPP =====
+const WHATSAPP_NUMERO = "593963177550"; // +593 sin el 0
+// ================================
+
 
 // Obtener carrito desde localStorage
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem("carrito")) || [];
 }
 
-// Guardar carrito en localStorage
+// Guardar carrito
 function guardarCarrito(carrito) {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// Agregar producto al carrito
+// Agregar producto
 function agregarAlCarrito(producto) {
     const carrito = obtenerCarrito();
-
     const existe = carrito.find(item => item.id === producto.id);
 
     if (existe) {
-        existe.cantidad += 1;
+        existe.cantidad++;
     } else {
-        carrito.push({
-            ...producto,
-            cantidad: 1
-        });
+        carrito.push({ ...producto, cantidad: 1 });
     }
 
     guardarCarrito(carrito);
@@ -34,8 +31,7 @@ function agregarAlCarrito(producto) {
 
 // Eliminar producto
 function eliminarDelCarrito(id) {
-    let carrito = obtenerCarrito();
-    carrito = carrito.filter(item => item.id !== id);
+    const carrito = obtenerCarrito().filter(item => item.id !== id);
     guardarCarrito(carrito);
     mostrarCarrito();
     actualizarContador();
@@ -48,7 +44,7 @@ function vaciarCarrito() {
     actualizarContador();
 }
 
-// Mostrar carrito en carrito.html
+// Mostrar carrito
 function mostrarCarrito() {
     const contenedor = document.getElementById("lista-carrito");
     if (!contenedor) return;
@@ -68,7 +64,7 @@ function mostrarCarrito() {
 
         contenedor.innerHTML += `
             <div class="item-carrito">
-                <img src="${item.imagen}">
+                <img src="${item.imagen}" style="width:80px;">
                 <div>
                     <h3>${item.nombre}</h3>
                     <p>$${item.precio} x ${item.cantidad}</p>
@@ -79,58 +75,60 @@ function mostrarCarrito() {
     });
 
     contenedor.innerHTML += `
-        <h2>Total: $${total}</h2>
-        <button onclick="confirmarPedidoWhatsApp()">Confirmar pedido</button>
-        <button onclick="vaciarCarrito()">Vaciar carrito</button>
+        <h2>Total: $${total.toFixed(2)}</h2>
+
+        <textarea id="direccion" placeholder="Dirección de envío" 
+        style="width:100%; margin:15px 0; padding:10px;"></textarea>
+
+        <button onclick="enviarPedidoWhatsApp()" class="btn">
+            Confirmar pedido por WhatsApp
+        </button>
+
+        <button onclick="vaciarCarrito()" style="margin-top:10px;">
+            Vaciar carrito
+        </button>
     `;
 }
 
-// Contador del carrito (icono)
+// Contador carrito
 function actualizarContador() {
     const contador = document.getElementById("contador-carrito");
     if (!contador) return;
 
-    const carrito = obtenerCarrito();
-    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-    contador.textContent = totalItems;
+    const total = obtenerCarrito().reduce((acc, item) => acc + item.cantidad, 0);
+    contador.textContent = total;
 }
 
-// Enviar pedido por WhatsApp
-function confirmarPedidoWhatsApp() {
+// Enviar pedido a WhatsApp
+function enviarPedidoWhatsApp() {
     const carrito = obtenerCarrito();
-
     if (carrito.length === 0) {
-        alert("Tu carrito está vacío");
+        alert("El carrito está vacío");
         return;
     }
 
-    const direccion = prompt("Ingresa la dirección de envío del pedido:");
-
+    const direccion = document.getElementById("direccion").value.trim();
     if (!direccion) {
-        alert("La dirección es obligatoria para continuar");
+        alert("Por favor ingresa la dirección de envío");
         return;
     }
 
-    let mensaje = "🛒 *Nuevo pedido - AXIS BIT*%0A%0A";
+    let mensaje = "🛍️ *Nuevo pedido - AXIS BIT*%0A%0A";
+    let total = 0;
 
     carrito.forEach(item => {
-        mensaje += `• ${item.nombre} x ${item.cantidad} - $${item.precio}%0A`;
+        total += item.precio * item.cantidad;
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio}%0A`;
     });
 
-    const total = carrito.reduce(
-        (acc, item) => acc + item.precio * item.cantidad,
-        0
-    );
+    mensaje += `%0A📦 *Dirección:* ${direccion}`;
+    mensaje += `%0A💰 *Total:* $${total.toFixed(2)}`;
 
-    mensaje += `%0A📍 *Dirección de envío:* ${direccion}`;
-    mensaje += `%0A💰 *Total:* $${total}`;
-
-    const telefono = "593963177550";
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
-
+    const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`;
     window.open(url, "_blank");
 }
 
-// Ejecutar al cargar la página
+// Ejecutar al cargar
 actualizarContador();
 mostrarCarrito();
+
