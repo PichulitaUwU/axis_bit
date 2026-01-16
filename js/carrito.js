@@ -48,6 +48,33 @@ function vaciarCarrito() {
     actualizarContador();
 }
 
+// 👉 NUEVA FUNCIÓN: Confirmar compra por WhatsApp
+function confirmarCompraWhatsApp() {
+    const carrito = obtenerCarrito();
+
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío");
+        return;
+    }
+
+    let mensaje = "Hola, quiero realizar una compra en AXIS BIT:%0A%0A";
+    let total = 0;
+
+    carrito.forEach(item => {
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio}%0A`;
+        total += item.precio * item.cantidad;
+    });
+
+    mensaje += `%0A*Total:* $${total}%0A%0A`;
+    mensaje += "Quedo atento/a para coordinar el pago y entrega.";
+
+    // 🔴 CAMBIA ESTE NÚMERO POR EL TUYO
+    const telefono = "593XXXXXXXXX"; // Ecuador: 593 + tu número
+
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, "_blank");
+}
+
 // Mostrar carrito en carrito.html
 function mostrarCarrito() {
     const contenedor = document.getElementById("lista-carrito");
@@ -80,7 +107,16 @@ function mostrarCarrito() {
 
     contenedor.innerHTML += `
         <h2>Total: $${total}</h2>
-        <button onclick="vaciarCarrito()">Vaciar carrito</button>
+
+        <button onclick="confirmarCompraWhatsApp()" class="btn">
+            Confirmar compra por WhatsApp
+        </button>
+
+        <br><br>
+
+        <button onclick="vaciarCarrito()">
+            Vaciar carrito
+        </button>
     `;
 }
 
