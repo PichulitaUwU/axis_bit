@@ -1,6 +1,6 @@
 /* =========================
    CARRITO - TIENDA WEB
-   ========================= */
+========================= */
 
 // Obtener carrito desde localStorage
 function obtenerCarrito() {
@@ -48,33 +48,6 @@ function vaciarCarrito() {
     actualizarContador();
 }
 
-// 👉 NUEVA FUNCIÓN: Confirmar compra por WhatsApp
-function confirmarCompraWhatsApp() {
-    const carrito = obtenerCarrito();
-
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío");
-        return;
-    }
-
-    let mensaje = "Hola, quiero realizar una compra en AXIS BIT:%0A%0A";
-    let total = 0;
-
-    carrito.forEach(item => {
-        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio}%0A`;
-        total += item.precio * item.cantidad;
-    });
-
-    mensaje += `%0A*Total:* $${total}%0A%0A`;
-    mensaje += "Quedo atento/a para coordinar el pago y entrega.";
-
-    // 🔴 CAMBIA ESTE NÚMERO POR EL TUYO
-    const telefono = "593XXXXXXXXX"; // Ecuador: 593 + tu número
-
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
-    window.open(url, "_blank");
-}
-
 // Mostrar carrito en carrito.html
 function mostrarCarrito() {
     const contenedor = document.getElementById("lista-carrito");
@@ -107,16 +80,8 @@ function mostrarCarrito() {
 
     contenedor.innerHTML += `
         <h2>Total: $${total}</h2>
-
-        <button onclick="confirmarCompraWhatsApp()" class="btn">
-            Confirmar compra por WhatsApp
-        </button>
-
-        <br><br>
-
-        <button onclick="vaciarCarrito()">
-            Vaciar carrito
-        </button>
+        <button onclick="confirmarPedidoWhatsApp()">Confirmar pedido</button>
+        <button onclick="vaciarCarrito()">Vaciar carrito</button>
     `;
 }
 
@@ -128,6 +93,42 @@ function actualizarContador() {
     const carrito = obtenerCarrito();
     const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
     contador.textContent = totalItems;
+}
+
+// Enviar pedido por WhatsApp
+function confirmarPedidoWhatsApp() {
+    const carrito = obtenerCarrito();
+
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío");
+        return;
+    }
+
+    const direccion = prompt("Ingresa la dirección de envío del pedido:");
+
+    if (!direccion) {
+        alert("La dirección es obligatoria para continuar");
+        return;
+    }
+
+    let mensaje = "🛒 *Nuevo pedido - AXIS BIT*%0A%0A";
+
+    carrito.forEach(item => {
+        mensaje += `• ${item.nombre} x ${item.cantidad} - $${item.precio}%0A`;
+    });
+
+    const total = carrito.reduce(
+        (acc, item) => acc + item.precio * item.cantidad,
+        0
+    );
+
+    mensaje += `%0A📍 *Dirección de envío:* ${direccion}`;
+    mensaje += `%0A💰 *Total:* $${total}`;
+
+    const telefono = "593963177550";
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+
+    window.open(url, "_blank");
 }
 
 // Ejecutar al cargar la página
