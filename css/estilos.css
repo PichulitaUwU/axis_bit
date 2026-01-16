@@ -1,0 +1,194 @@
+/* ================= SISTEMA DE COLOR ================= */
+:root {
+    --obsidian-black: #1A1A1B;
+    --tech-grey: #D1D1D1;
+    --ghost-white: #F5F5F5;
+    --warning-orange: #E67E22;
+}
+
+/* ================= BASE ================= */
+body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: var(--obsidian-black);
+    color: var(--ghost-white);
+}
+
+/* ================= HEADER / NAV ================= */
+header {
+    border-bottom: 1px solid rgba(209,209,209,0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+}
+
+.navbar a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: var(--tech-grey);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.navbar a:hover {
+    color: var(--warning-orange);
+}
+
+/* ================= HERO ================= */
+.hero {
+    height: 90vh;
+    background:
+        linear-gradient(rgba(26,26,27,0.85), rgba(26,26,27,0.85)),
+        url("../img/fondos/hero1.jpg") center/cover no-repeat;
+    background-position: center top;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+    transition: background-image 1.5s ease-in-out;
+}
+
+.hero h1 {
+    font-size: 56px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+/* ================= BOTONES ================= */
+.btn {
+    background: transparent;
+    color: var(--ghost-white);
+    padding: 14px 34px;
+    border: 1px solid var(--tech-grey);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.btn:hover {
+    color: var(--warning-orange);
+    border-color: var(--warning-orange);
+}
+
+/* ================= PRODUCTOS ================= */
+.productos {
+    padding: 100px 80px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+}
+
+.card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(209,209,209,0.1);
+    padding: 30px;
+    position: relative;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    height: 1px;
+    background: var(--warning-orange);
+}
+
+.card img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 24px;
+    filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+}
+
+/* ===== HERO REVEAL TRANSITION ===== */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--obsidian-black);
+    transform: translateX(-100%);
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+    z-index: 1;
+}
+
+.hero.reveal::after {
+    transform: translateX(0);
+}
+
+.hero.uncover::after {
+    transform: translateX(100%);
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= CARRITO ================= */
+
+.item-carrito {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(209,209,209,0.1);
+}
+
+.item-carrito img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+}
+
+.item-carrito h3 {
+    margin: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.item-carrito p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: var(--tech-grey);
+}
+
+.item-carrito button {
+    background: transparent;
+    border: 1px solid var(--tech-grey);
+    color: var(--ghost-white);
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.item-carrito button:hover {
+    border-color: var(--warning-orange);
+    color: var(--warning-orange);
+}
+
