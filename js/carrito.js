@@ -83,7 +83,7 @@ function mostrarCarrito() {
 
         <div id="formulario-envio"></div>
 
-        <button onclick="vaciarCarrito()" style="margin-top:10px;">
+        <button onclick="vaciarCarrito()" class="btn" style="margin-top:10px;">
             Vaciar carrito
         </button>
     `;
@@ -157,3 +157,4 @@ function enviarPedidoWhatsApp() {
 // Ejecutar al cargar
 actualizarContador();
 mostrarCarrito();
+
