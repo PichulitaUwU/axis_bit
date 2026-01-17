@@ -2,7 +2,6 @@
 const WHATSAPP_NUMERO = "593963177550"; // +593 sin el 0
 // ================================
 
-
 // Obtener carrito desde localStorage
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -12,6 +11,7 @@ function obtenerCarrito() {
 function guardarCarrito(carrito) {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
+
 // Agregar producto
 function agregarAlCarrito(producto) {
     const carrito = obtenerCarrito();
@@ -76,9 +76,6 @@ function mostrarCarrito() {
     contenedor.innerHTML += `
         <h2>Total: $${total.toFixed(2)}</h2>
 
-        <textarea id="direccion" placeholder="Dirección de envío" 
-        style="width:100%; margin:15px 0; padding:10px;"></textarea>
-
         <button onclick="mostrarFormulario()" class="btn">
             Confirmar pedido
         </button>
@@ -90,6 +87,8 @@ function mostrarCarrito() {
         </button>
     `;
 }
+
+// Mostrar formulario de envío
 function mostrarFormulario() {
     const contenedor = document.getElementById("formulario-envio");
 
@@ -148,13 +147,10 @@ function enviarPedidoWhatsApp() {
 
     mensaje += `%0A💰 *Total:* $${total.toFixed(2)}`;
 
-    const url = `https://wa.me/593963177550?text=${mensaje}`;
+    const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`;
     window.open(url, "_blank");
 }
-
 
 // Ejecutar al cargar
 actualizarContador();
 mostrarCarrito();
-
-
