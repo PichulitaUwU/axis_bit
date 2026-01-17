@@ -198,7 +198,7 @@ textarea:focus {
     cursor: pointer;
 }
 
-.item-carrito button:hover {
+.item-carrito button:not(.btn):hover {
     border-color: var(--warning-orange);
     color: var(--warning-orange);
 }
