@@ -57,7 +57,7 @@ const productos = [
     },
     {
         id: 6,
-        nombre: "Camiseta - Capitan América",
+        nombre: "Capitan América",
         descripcion: "El peso de una convicción que no cede; un centro de gravedad inamovible frente al colapso de cualquier sistema exterior.",
         precio: 9.99,
         imagen: "img/productos/camisa6.png",
@@ -66,9 +66,9 @@ const productos = [
     },
     {
         id: 7,
-        nombre: "Camiseta - Cloak & Dagger",
+        nombre: "Cloak and Dagger",
         descripcion: "Convergencia de fuerzas opuestas; la comprensión de que el vacío y la luz son fragmentos de una misma unidad indivisible.",
-        precio: 18.00,
+        precio: 17.90,
         imagen: "img/productos/camisa7.png",
         categoria: "camiseta",
         coleccion: "marvel-rivals"
