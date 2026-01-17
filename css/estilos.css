@@ -190,7 +190,7 @@ textarea:focus {
     color: var(--tech-grey);
 }
 
-.item-carrito button {
+.item-carrito button:not(.btn) {
     background: transparent;
     border: 1px solid var(--tech-grey);
     color: var(--ghost-white);
