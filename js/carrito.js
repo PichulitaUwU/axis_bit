@@ -2,6 +2,7 @@
 const WHATSAPP_NUMERO = "593963177550"; // +593 sin el 0
 // ================================
 
+
 // Obtener carrito desde localStorage
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -63,7 +64,7 @@ function mostrarCarrito() {
 
         contenedor.innerHTML += `
             <div class="item-carrito">
-                <img src="${item.imagen}" style="width:80px;">
+                <img src="${item.imagen}">
                 <div>
                     <h3>${item.nombre}</h3>
                     <p>$${item.precio} x ${item.cantidad}</p>
@@ -76,7 +77,7 @@ function mostrarCarrito() {
     contenedor.innerHTML += `
         <h2>Total: $${total.toFixed(2)}</h2>
 
-        <button onclick="mostrarFormulario()" class="btn">
+        <button class="btn" onclick="mostrarFormulario()">
             Confirmar pedido
         </button>
 
@@ -95,12 +96,12 @@ function mostrarFormulario() {
     contenedor.innerHTML = `
         <h3>Datos de envío</h3>
 
-        <input id="nombre" placeholder="Nombre completo" style="width:100%; padding:10px; margin:8px 0;">
-        <input id="telefono" placeholder="Teléfono" style="width:100%; padding:10px; margin:8px 0;">
-        <textarea id="direccion" placeholder="Dirección de envío" style="width:100%; padding:10px; margin:8px 0;"></textarea>
-        <textarea id="referencia" placeholder="Referencia (opcional)" style="width:100%; padding:10px; margin:8px 0;"></textarea>
+        <input id="nombre" placeholder="Nombre completo">
+        <input id="telefono" placeholder="Teléfono">
+        <textarea id="direccion" placeholder="Dirección de envío"></textarea>
+        <textarea id="referencia" placeholder="Referencia (opcional)"></textarea>
 
-        <button onclick="enviarPedidoWhatsApp()" class="btn" style="margin-top:10px;">
+        <button class="btn" onclick="enviarPedidoWhatsApp()" style="margin-top:10px;">
             Enviar pedido por WhatsApp
         </button>
     `;
@@ -129,25 +130,27 @@ function enviarPedidoWhatsApp() {
         return;
     }
 
-    let mensaje = "🛍️ *Nuevo pedido - AXIS BIT*%0A%0A";
+    let mensaje = `🛍️ Nuevo pedido - AXIS BIT\n\n`;
     let total = 0;
 
     carrito.forEach(item => {
         total += item.precio * item.cantidad;
-        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio}%0A`;
+        mensaje += `• ${item.nombre} x${item.cantidad} - $${item.precio}\n`;
     });
 
-    mensaje += `%0A👤 *Nombre:* ${nombre}`;
-    mensaje += `%0A📞 *Teléfono:* ${telefono}`;
-    mensaje += `%0A📦 *Dirección:* ${direccion}`;
+    mensaje += `\nNombre: ${nombre}`;
+    mensaje += `\nTeléfono: ${telefono}`;
+    mensaje += `\nDirección: ${direccion}`;
 
     if (referencia) {
-        mensaje += `%0A📍 *Referencia:* ${referencia}`;
+        mensaje += `\nReferencia: ${referencia}`;
     }
 
-    mensaje += `%0A💰 *Total:* $${total.toFixed(2)}`;
+    mensaje += `\n\nTotal: $${total.toFixed(2)}`;
 
-    const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`;
+    const mensajeCodificado = encodeURIComponent(mensaje);
+    const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeCodificado}`;
+
     window.open(url, "_blank");
 }
 
