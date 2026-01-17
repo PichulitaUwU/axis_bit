@@ -196,8 +196,6 @@ textarea:focus {
     color: var(--ghost-white);
     padding: 8px 16px;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.12em;
 }
 
 .item-carrito button:hover {
