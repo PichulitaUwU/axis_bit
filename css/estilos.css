@@ -217,3 +217,69 @@ textarea:focus {
         padding: 20px 30px;
     }
 }
+
+/* ================= MOBILE FIRST ================= */
+@media (max-width: 768px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 24px;
+    }
+
+    .navbar nav {
+        margin-top: 12px;
+    }
+
+    .navbar a {
+        margin-left: 0;
+        margin-right: 20px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding-left: 24px;
+        padding-right: 24px;
+        height: 70vh;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .productos {
+        padding: 60px 24px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .item-carrito {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .item-carrito img {
+        width: 100%;
+        max-width: 220px;
+        margin: 0 auto;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+    }
+
+    input,
+    textarea {
+        font-size: 14px;
+    }
+}
