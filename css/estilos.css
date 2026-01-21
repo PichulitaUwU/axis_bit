@@ -288,6 +288,7 @@ textarea:focus {
 
 .dropdown {
     position: relative;
+    display: inline-block;
 }
 
 .dropbtn {
@@ -299,6 +300,7 @@ textarea:focus {
     text-transform: uppercase;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
+    padding: 0;
 }
 
 .dropbtn:hover {
@@ -307,16 +309,34 @@ textarea:focus {
 
 .dropdown-menu {
     position: absolute;
-    top: 130%;
+    top: 140%;
     left: 0;
     background-color: #111;
     border: 1px solid rgba(209,209,209,0.1);
-    min-width: 180px;
+    min-width: 200px;
     display: none;
     flex-direction: column;
     z-index: 999;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .dropdown-menu.show {
     display: flex;
+}
+
+/* Links del dropdown */
+.dropdown-menu a {
+    padding: 12px 18px;
+    text-decoration: none;
+    color: var(--tech-grey);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(209,209,209,0.05);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255,255,255,0.05);
+    color: var(--warning-orange);
 }
