@@ -15,37 +15,33 @@ if (hero) {
     let current = 0;
 
     setInterval(() => {
-        // CUBRE
         hero.classList.remove("uncover");
         hero.classList.add("reveal");
 
         setTimeout(() => {
-            // CAMBIA IMAGEN
             current = (current + 1) % backgrounds.length;
             hero.style.background = `
                 linear-gradient(rgba(26,26,27,0.85), rgba(26,26,27,0.85)),
                 url("${backgrounds[current]}") center/cover no-repeat
             `;
 
-            // DESCUBRE
             hero.classList.remove("reveal");
             hero.classList.add("uncover");
-        }, 1200); // coincide con el CSS
-
-    }, 4000); 
+        }, 1200);
+    }, 4000);
 }
-function toggleDropdown() {
+
+// ===== DROPDOWN MENU =====
+function toggleDropdown(event) {
+    event.stopPropagation(); // evita que el click cierre el menú inmediatamente
     const menu = document.getElementById("dropdownMenu");
     menu.classList.toggle("show");
 }
 
 // Cerrar dropdown si se hace click fuera
-document.addEventListener("click", function (e) {
-    const dropdown = document.querySelector(".dropdown");
+document.addEventListener("click", function () {
     const menu = document.getElementById("dropdownMenu");
-
-    if (!dropdown.contains(e.target)) {
+    if (menu) {
         menu.classList.remove("show");
     }
 });
-
