@@ -288,7 +288,21 @@ textarea:focus {
 
 .dropdown {
     position: relative;
-    display: inline-block;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    color: var(--tech-grey);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.dropbtn:hover {
+    color: var(--warning-orange);
 }
 
 .dropdown-menu {
@@ -303,22 +317,6 @@ textarea:focus {
     z-index: 999;
 }
 
-.dropdown-menu a {
-    padding: 12px 16px;
-    text-decoration: none;
-    color: var(--tech-grey);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(209,209,209,0.05);
-}
-
-.dropdown-menu a:hover {
-    background-color: rgba(255,255,255,0.05);
-    color: var(--warning-orange);
-}
-
-.dropdown:hover .dropdown-menu {
+.dropdown-menu.show {
     display: flex;
 }
-
