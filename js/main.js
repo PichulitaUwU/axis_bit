@@ -34,4 +34,18 @@ if (hero) {
 
     }, 4000); 
 }
+function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.classList.toggle("show");
+}
+
+// Cerrar dropdown si se hace click fuera
+document.addEventListener("click", function (e) {
+    const dropdown = document.querySelector(".dropdown");
+    const menu = document.getElementById("dropdownMenu");
+
+    if (!dropdown.contains(e.target)) {
+        menu.classList.remove("show");
+    }
+});
 
