@@ -12,12 +12,11 @@
     <div class="navbar">
         <div class="logo">AXIS BIT</div>
 
-        <!-- AQUÍ VA SOLO ESTE NAV -->
         <nav>
             <a href="index.html">Inicio</a>
 
             <div class="dropdown">
-                <button class="dropbtn" onclick="toggleDropdown()">Colección ▾</button>
+                <button class="dropbtn" onclick="toggleDropdown(event)">Colección ▾</button>
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="productos.html?coleccion=marvel">Marvel Rivals</a>
                     <a href="productos.html?coleccion=elden">Elden Ring</a>
@@ -31,12 +30,12 @@
     </div>
 </header>
 
-
 <section class="productos">
     <h1>Carrito</h1>
     <div id="lista-carrito"></div>
 </section>
 
+<script src="js/main.js"></script>
 <script src="js/carrito.js"></script>
 </body>
 </html>
