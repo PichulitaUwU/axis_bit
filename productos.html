@@ -2,46 +2,49 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colección | Axis Bit</title>
-
     <link rel="stylesheet" href="css/estilos.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 <header>
     <div class="navbar">
-        <div class="logo">AXIS BIT</div>
+        <a href="index.html" class="logo">AXIS BIT</a>
 
-        <!-- AQUÍ VA SOLO ESTE NAV -->
-        <nav>
-            <a href="index.html">Inicio  </a>
+        <nav aria-label="Navegación de categorías">
+            <a href="index.html">Inicio</a>
 
             <div class="dropdown">
-                <button class="dropbtn" onclick="toggleDropdown(event)">Colección ▾</button>
+                <button type="button" class="dropbtn" onclick="toggleDropdown(event)">Colección ▾</button>
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="productos.html?coleccion=marvel">Marvel Rivals</a>
                     <a href="productos.html?coleccion=elden">Elden Ring</a>
                     <a href="productos.html?coleccion=hollow">Hollow Knight</a>
-                    <a href="#">Próximamente</a>
+                    <span class="proximamente">Próximamente</span>
                 </div>
             </div>
 
-            <a href="carrito.html">🛒 <span id="contador-carrito">0</span></a>
+            <a href="carrito.html" aria-label="Ver carrito">
+                🛒 <span id="contador-carrito">0</span>
+            </a>
         </nav>
     </div>
 </header>
 
+<main>
+    <section class="productos">
+        <h1 id="titulo-coleccion">Nuestras Colecciones</h1>
+        
+        <div class="grid" id="productos">
+            </div>
+    </section>
+</main>
 
-<section class="productos">
-    <!-- CONTENEDOR ÚNICO CONTROLADO POR JS -->
-    <div class="grid" id="productos"></div>
-</section>
-
+<script src="js/main.js"></script>
 <script src="js/carrito.js"></script>
 <script src="js/productos.js"></script>
 
 </body>
 </html>
-
