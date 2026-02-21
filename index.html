@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Axis Bit - The Hidden Layer. Encuentra las mejores colecciones de Marvel, Elden Ring y más.">
+    <meta name="theme-color" content="#1A1A1B">
+
     <title>Axis Bit | The Hidden Layer</title>
-    
-    <link rel="stylesheet" href="css/estilos.css">
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preload" as="image" href="img/fondos/hero1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
@@ -19,14 +25,22 @@
             <a href="index.html">Inicio</a>
 
             <div class="dropdown">
-                <button type="button" class="dropbtn" onclick="toggleDropdown(event)">
+                <button 
+                    type="button" 
+                    class="dropbtn" 
+                    onclick="toggleDropdown(event)" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
                     Colección ▾
                 </button>
+
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="productos.html?coleccion=marvel">Marvel Rivals</a>
                     <a href="productos.html?coleccion=elden">Elden Ring</a>
                     <a href="productos.html?coleccion=hollow">Hollow Knight</a>
-                    <span class="proximamente">Próximamente</span>
+                    <span class="proximamente" style="padding:15px 20px; font-size:11px; opacity:0.5; text-transform:uppercase;">
+                        Próximamente
+                    </span>
                 </div>
             </div>
 
@@ -47,8 +61,14 @@
     </section>
 </main>
 
-<script src="js/main.js"></script>
-<script src="js/carrito.js"></script>
+<footer style="text-align:center; padding:40px 20px; border-top:1px solid rgba(255,255,255,0.05); margin-top:60px;">
+    <p style="font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#777;">
+        © 2026 Axis Bit — The Hidden Layer
+    </p>
+</footer>
+
+<script src="js/main.js" defer></script>
+<script src="js/carrito.js" defer></script>
 
 </body>
 </html>
