@@ -2,7 +2,7 @@
    PRODUCTOS.JS - Lógica de Catálogo y Detalle de Producto
    ========================================================== */
 
-// 1. BASE DE DATOS DE PRODUCTOS
+// ================= BASE DE DATOS =================
 const productos = [
     {
         id: 1,
@@ -24,7 +24,7 @@ const productos = [
     },
     {
         id: 3,
-        nombre: "Black Panter",
+        nombre: "Black Panther",
         descripcion: "Autoridad silenciosa que nace de la raíz y se protege con blindaje; soberanía absoluta sobre el territorio personal.",
         precio: 9.99,
         imagen: "img/productos/camisa3.png",
@@ -51,7 +51,7 @@ const productos = [
     },
     {
         id: 6,
-        nombre: "Capitan América",
+        nombre: "Capitán América",
         descripcion: "El peso de una convicción que no cede; un centro de gravedad inamovible frente al colapso de cualquier sistema exterior.",
         precio: 9.99,
         imagen: "img/productos/camisa6.png",
@@ -69,42 +69,55 @@ const productos = [
     }
 ];
 
-// 2. UTILIDADES
+// ================= UTILIDADES =================
 function obtenerParametro(nombre) {
     const params = new URLSearchParams(window.location.search);
     return params.get(nombre);
 }
 
-// 3. RENDERIZADO DE CATÁLOGO (productos.html)
+function formatearPrecio(valor) {
+    return `$${valor.toFixed(2)}`;
+}
+
+function capitalizar(texto) {
+    return texto
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// ================= CATÁLOGO =================
 function renderizarCatalogo() {
     const contenedor = document.getElementById("productos");
     const tituloSeccion = document.getElementById("titulo-coleccion");
     const coleccionURL = obtenerParametro("coleccion");
 
-    if (!contenedor) return; // Si no estamos en la página de productos, salir
+    if (!contenedor) return;
 
-    contenedor.innerHTML = ""; // Limpiar contenedor
+    contenedor.innerHTML = "";
 
     if (!coleccionURL) {
-        // MODO: MOSTRAR TODAS LAS COLECCIONES DISPONIBLES
         const coleccionesUnicas = [...new Set(productos.map(p => p.coleccion))];
         if (tituloSeccion) tituloSeccion.innerText = "Nuestras Colecciones";
 
         coleccionesUnicas.forEach(col => {
             contenedor.innerHTML += `
                 <div class="card">
-                    <h3 style="text-transform:uppercase; letter-spacing:0.15em;">${col.replace("-", " ")}</h3>
+                    <h3 style="text-transform:uppercase; letter-spacing:0.15em;">
+                        ${capitalizar(col)}
+                    </h3>
                     <a href="productos.html?coleccion=${col}" class="btn" style="margin-top:20px; display:inline-block;">
                         Explorar Colección
                     </a>
                 </div>
             `;
         });
+
     } else {
-        // MODO: MOSTRAR PRODUCTOS DE UNA COLECCIÓN ESPECÍFICA
         const filtrados = productos.filter(p => p.coleccion === coleccionURL);
-        
-        if (tituloSeccion) tituloSeccion.innerText = coleccionURL.replace("-", " ").toUpperCase();
+
+        if (tituloSeccion) {
+            tituloSeccion.innerText = capitalizar(coleccionURL).toUpperCase();
+        }
 
         if (filtrados.length === 0) {
             contenedor.innerHTML = "<p>No se encontraron productos en esta colección.</p>";
@@ -114,10 +127,16 @@ function renderizarCatalogo() {
         filtrados.forEach(p => {
             contenedor.innerHTML += `
                 <div class="card">
-                    <img src="${p.imagen}" alt="${p.nombre}" style="width:100%; border-radius:8px;">
-                    <h3 style="margin-top:15px; text-transform:uppercase;">${p.nombre}</h3>
-                    <p style="color:#aaa; font-size:0.9rem; margin:10px 0;">${p.descripcion.substring(0, 80)}...</p>
-                    <p style="font-weight:bold; font-size:1.2rem;">$${p.precio.toFixed(2)}</p>
+                    <img src="${p.imagen}" alt="${p.nombre}">
+                    <h3 style="margin-top:15px; text-transform:uppercase;">
+                        ${p.nombre}
+                    </h3>
+                    <p style="color:#aaa; font-size:0.9rem; margin:10px 0;">
+                        ${p.descripcion.substring(0, 80)}...
+                    </p>
+                    <p style="font-weight:bold; font-size:1.2rem;">
+                        ${formatearPrecio(p.precio)}
+                    </p>
                     <a href="producto.html?id=${p.id}" class="btn" style="margin-top:15px; display:inline-block;">
                         Ver Detalle
                     </a>
@@ -127,7 +146,7 @@ function renderizarCatalogo() {
     }
 }
 
-// 4. RENDERIZADO DE DETALLE (producto.html)
+// ================= DETALLE =================
 function renderizarDetalle() {
     const contenedorDetalle = document.getElementById("detalle-producto");
     const idURL = obtenerParametro("id");
@@ -137,21 +156,36 @@ function renderizarDetalle() {
     const producto = productos.find(p => p.id === parseInt(idURL));
 
     if (!producto) {
-        contenedorDetalle.innerHTML = "<h2>Producto no encontrado</h2><a href='productos.html'>Volver a la tienda</a>";
+        contenedorDetalle.innerHTML = `
+            <h2>Producto no encontrado</h2>
+            <a href="productos.html" class="btn" style="margin-top:20px; display:inline-block;">
+                Volver a la tienda
+            </a>
+        `;
         return;
     }
 
     contenedorDetalle.innerHTML = `
-        <div class="producto-layout" style="display: flex; gap: 40px; flex-wrap: wrap; align-items: center;">
-            <div class="producto-imagen" style="flex: 1; min-width: 300px;">
-                <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 100%; border-radius: 15px;">
+        <div class="producto-layout" style="display:flex; gap:40px; flex-wrap:wrap; align-items:center;">
+            
+            <div class="producto-imagen" style="flex:1; min-width:300px;">
+                <img src="${producto.imagen}" alt="${producto.nombre}" style="width:100%; border-radius:15px;">
             </div>
-            <div class="producto-info" style="flex: 1; min-width: 300px;">
-                <h1 style="font-size: 2.5rem; text-transform: uppercase;">${producto.nombre}</h1>
-                <p style="font-size: 1.5rem; color: #fff; margin: 20px 0;">$${producto.precio.toFixed(2)}</p>
-                <p style="line-height: 1.6; color: #d1d1d1;">${producto.descripcion}</p>
+
+            <div class="producto-info" style="flex:1; min-width:300px;">
+                <h1 style="font-size:2.5rem; text-transform:uppercase;">
+                    ${producto.nombre}
+                </h1>
+
+                <p style="font-size:1.5rem; margin:20px 0;">
+                    ${formatearPrecio(producto.precio)}
+                </p>
+
+                <p style="line-height:1.6; color:#d1d1d1;">
+                    ${producto.descripcion}
+                </p>
                 
-                <div class="compra-acciones" style="margin-top: 30px;">
+                <div class="compra-acciones" style="margin-top:30px;">
                     <button class="btn" onclick="agregarAlCarritoPorId(${producto.id})">
                         Añadir al Carrito
                     </button>
@@ -161,17 +195,20 @@ function renderizarDetalle() {
     `;
 }
 
-// 5. FUNCIÓN PUENTE PARA EL CARRITO
+// ================= PUENTE CON CARRITO =================
 function agregarAlCarritoPorId(id) {
     const producto = productos.find(p => p.id === id);
+
+    if (!producto) return;
+
     if (typeof agregarAlCarrito === "function") {
         agregarAlCarrito(producto);
     } else {
-        alert("Error: No se encontró la lógica del carrito.");
+        console.error("No se encontró la lógica del carrito.");
     }
 }
 
-// INICIALIZACIÓN AL CARGAR EL DOM
+// ================= INIT =================
 document.addEventListener("DOMContentLoaded", () => {
     renderizarCatalogo();
     renderizarDetalle();
