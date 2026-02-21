@@ -146,27 +146,25 @@ function enviarPedidoWhatsApp() {
         return;
     }
 
-    let mensaje = `🛍️ *NUEVO PEDIDO - AXIS BIT*\n`;
-    mensaje += `--------------------------\n`;
+    let mensaje = `*NUEVO PEDIDO - AXIS BIT*\n`;
+    mensaje += `------------------------------\n`;
     
     let total = 0;
     carrito.forEach(item => {
         const sub = item.precio * item.cantidad;
         total += sub;
-        mensaje += `✅ *${item.nombre}*\n   ${item.cantidad} x $${item.precio.toFixed(2)} = *$${sub.toFixed(2)}*\n`;
+        mensaje += `○*${item.nombre}*\n   ${item.cantidad} x $${item.precio.toFixed(2)} = *$${sub.toFixed(2)}*\n`;
     });
 
-    mensaje += `--------------------------\n`;
-    mensaje += `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n\n`;
-    mensaje += `👤 *CLIENTE:* ${nombre}\n`;
-    mensaje += `📞 *TELÉFONO:* ${telefono}\n`;
-    mensaje += `📍 *DIRECCIÓN:* ${direccion}\n`;
+    mensaje += `------------------------------\n`;
+    mensaje += `*TOTAL A PAGAR: $${total.toFixed(2)}*\n\n`;
+    mensaje += `*CLIENTE:* ${nombre}\n`;
+    mensaje += `*TELÉFONO:* ${telefono}\n`;
+    mensaje += `*DIRECCIÓN:* ${direccion}\n`;
 
     if (referencia) {
-        mensaje += `🏠 *REF:* ${referencia}\n`;
+        mensaje += `REF:* ${referencia}\n`;
     }
-
-    mensaje += `\n_Enviado desde el sitio web de Axis Bit_`;
 
     const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, "_blank");
@@ -177,3 +175,4 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarContador();
     mostrarCarrito();
 });
+
