@@ -2,38 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Carrito | Axis Bit</title>
-    <link rel="stylesheet" href="css/estilos.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito | Axis Bit</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <div class="navbar">
-        <div class="logo">AXIS BIT</div>
-
+        <a href="index.html" class="logo">AXIS BIT</a>
         <nav>
-            <a href="index.html">Inicio  </a>
-
+            <a href="index.html">Inicio</a>
             <div class="dropdown">
-                <button class="dropbtn" onclick="toggleDropdown(event)">Colección ▾</button>
+                <button type="button" class="dropbtn" onclick="toggleDropdown(event)">Colección ▾</button>
                 <div class="dropdown-menu" id="dropdownMenu">
                     <a href="productos.html?coleccion=marvel">Marvel Rivals</a>
                     <a href="productos.html?coleccion=elden">Elden Ring</a>
                     <a href="productos.html?coleccion=hollow">Hollow Knight</a>
-                    <a href="#">Próximamente</a>
+                    <span class="proximamente">Próximamente</span>
                 </div>
             </div>
-
-            <a href="carrito.html">🛒 <span id="contador-carrito">0</span></a>
+            <a href="carrito.html" class="cart-active">🛒 <span id="contador-carrito">0</span></a>
         </nav>
     </div>
 </header>
 
-<section class="productos">
-    <h1>Carrito</h1>
-    <div id="lista-carrito"></div>
-</section>
+<main class="contenedor-carrito">
+    <section class="productos">
+        <h1>Tu Carrito</h1>
+        
+        <div id="lista-carrito">
+            <p class="carrito-vacio">Cargando productos...</p>
+        </div>
+
+        <div id="resumen-carrito" class="resumen-compra">
+            <div class="total-container">
+                <span>Total a pagar:</span>
+                <span id="total-precio">$0.00</span>
+            </div>
+            <div class="acciones-carrito">
+                <button id="vaciar-carrito" class="btn-secundario">Vaciar Carrito</button>
+                <button id="finalizar-compra" class="btn">Finalizar Compra</button>
+            </div>
+        </div>
+    </section>
+</main>
 
 <script src="js/main.js"></script>
 <script src="js/carrito.js"></script>
