@@ -1,9 +1,14 @@
-/* ================= SISTEMA DE COLOR ================= */
+/* =========================
+   AXIS BIT - ESTILOS BASE
+   ========================= */
+
+/* ================= SYSTEMA DE COLOR ================= */
 :root {
     --obsidian-black: #1A1A1B;
     --tech-grey: #D1D1D1;
     --ghost-white: #F5F5F5;
     --warning-orange: #E67E22;
+    --dark-surface: #111111;
 }
 
 /* ================= BASE ================= */
@@ -12,11 +17,16 @@ body {
     font-family: 'Inter', Arial, sans-serif;
     background-color: var(--obsidian-black);
     color: var(--ghost-white);
+    line-height: 1.6;
 }
 
 /* ================= HEADER / NAV ================= */
 header {
     border-bottom: 1px solid rgba(209,209,209,0.1);
+    position: sticky;
+    top: 0;
+    background: var(--obsidian-black);
+    z-index: 1000;
 }
 
 .navbar {
@@ -26,17 +36,52 @@ header {
     padding: 20px 60px;
 }
 
-.navbar a {
-    margin-left: 30px;
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    color: var(--ghost-white);
+}
+
+/* Contenedor de navegación */
+.navbar nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a, .dropbtn {
     text-decoration: none;
     color: var(--tech-grey);
     font-size: 13px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
-.navbar a:hover {
+/* Estilo específico para separar Inicio y Colección */
+.navbar a[href="index.html"] {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a[href="index.html"]::after {
+    content: "|";
+    margin-left: 25px;   /* Espacio después de Inicio */
+    margin-right: 15px;  /* Espacio antes de Colección */
+    color: rgba(209,209,209,0.2);
+    font-weight: 300;
+    pointer-events: none;
+}
+
+.navbar a:hover, .dropbtn:hover {
     color: var(--warning-orange);
+}
+
+/* Espaciado para el carrito */
+.navbar a[href="carrito.html"] {
+    margin-left: 25px;
+    font-size: 16px; /* Ícono un poco más grande */
 }
 
 /* ================= HERO ================= */
@@ -48,40 +93,29 @@ header {
     background-position: center top;
     display: flex;
     align-items: center;
-    padding-left: 80px;
-    transition: background-image 1.5s ease-in-out;
+    padding: 0 80px;
     position: relative;
     overflow: hidden;
-}
-
-.hero h1 {
-    font-size: 56px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--obsidian-black);
-    transform: translateX(-100%);
-    transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
-    z-index: 1;
-}
-
-.hero.reveal::after {
-    transform: translateX(0);
-}
-
-.hero.uncover::after {
-    transform: translateX(100%);
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 8vw, 56px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.hero p {
+    font-size: 18px;
+    letter-spacing: 0.3em;
+    color: var(--tech-grey);
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
 /* ================= BOTONES ================= */
@@ -95,248 +129,187 @@ header {
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .btn:hover {
     color: var(--warning-orange);
     border-color: var(--warning-orange);
+    background: rgba(230, 126, 34, 0.05);
 }
 
-/* ================= PRODUCTOS ================= */
+.btn-secundario {
+    background: transparent;
+    color: #888;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-secundario:hover {
+    border-color: #ff4d4d;
+    color: #ff4d4d;
+}
+
+/* ================= PRODUCTOS / GRID ================= */
 .productos {
-    padding: 100px 80px;
+    padding: 80px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.productos h1 {
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    font-weight: 400;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 60px;
+    /* GRID RESPONSIVO: Mínimo 280px por tarjeta */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
 }
 
 .card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(209,209,209,0.1);
-    padding: 30px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(209,209,209,0.08);
+    padding: 25px;
     position: relative;
+    transition: transform 0.4s ease, border-color 0.4s ease;
 }
 
-.card::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 30%;
-    height: 1px;
-    background: var(--warning-orange);
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(230, 126, 34, 0.3);
 }
 
 .card img {
-    max-width: 100%;
-    display: block;
-    margin: 0 auto 24px;
-    filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
-}
-
-/* ================= FORMULARIOS (CARRITO / ENVÍO) ================= */
-input,
-textarea {
     width: 100%;
-    padding: 14px;
-    margin: 10px 0;
-    background-color: #111;
-    border: 1px solid rgba(209,209,209,0.3);
-    color: var(--ghost-white);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    outline: none;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: #aaa;
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
 }
 
-input:focus,
-textarea:focus {
-    border-color: var(--ghost-white);
+.card p {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 20px;
 }
 
 /* ================= CARRITO ================= */
+#lista-carrito {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 .item-carrito {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 24px;
-    align-items: center;
+    display: flex;
+    gap: 20px;
     padding: 20px 0;
-    border-bottom: 1px solid rgba(209,209,209,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .item-carrito img {
-    width: 120px;
-    height: auto;
-    object-fit: contain;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
 }
 
-.item-carrito h3 {
-    margin: 0;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-}
-
-.item-carrito p {
-    margin: 6px 0;
-    font-size: 14px;
-    color: var(--tech-grey);
-}
-
-.item-carrito button:not(.btn) {
-    background: transparent;
-    border: 1px solid var(--tech-grey);
-    color: var(--ghost-white);
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.item-carrito button:not(.btn):hover {
-    border-color: var(--warning-orange);
-    color: var(--warning-orange);
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hero h1 {
-        font-size: 40px;
-    }
-
-    .navbar {
-        padding: 20px 30px;
-    }
-}
-
-/* ================= MOBILE FIRST ================= */
-@media (max-width: 768px) {
-
-    body {
-        font-size: 14px;
-    }
-
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px 24px;
-    }
-
-    .navbar nav {
-        margin-top: 12px;
-    }
-
-    .navbar a {
-        margin-left: 0;
-        margin-right: 20px;
-        font-size: 12px;
-    }
-
-    .hero {
-        padding-left: 24px;
-        padding-right: 24px;
-        height: 70vh;
-    }
-
-    .hero h1 {
-        font-size: 32px;
-        line-height: 1.2;
-    }
-
-    .productos {
-        padding: 60px 24px;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .item-carrito {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .item-carrito img {
-        width: 100%;
-        max-width: 220px;
-        margin: 0 auto;
-    }
-
-    .btn {
-        width: 100%;
-        text-align: center;
-        padding: 14px;
-    }
-
-    input,
-    textarea {
-        font-size: 14px;
-    }
-}
-
-/* ================= DROPDOWN MENU ================= */
-
+/* ================= DROPDOWN ================= */
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
 }
 
 .dropbtn {
     background: none;
     border: none;
-    color: var(--tech-grey);
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: inherit;
     padding: 0;
-}
-
-.dropbtn:hover {
-    color: var(--warning-orange);
 }
 
 .dropdown-menu {
     position: absolute;
-    top: 140%;
+    top: 150%;
     left: 0;
-    background-color: #111;
-    border: 1px solid rgba(209,209,209,0.1);
-    min-width: 200px;
+    background-color: #0c0c0c;
+    border: 1px solid rgba(255,255,255,0.1);
+    min-width: 220px;
     display: none;
     flex-direction: column;
-    z-index: 999;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    z-index: 1100;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
 }
 
 .dropdown-menu.show {
     display: flex;
 }
 
-/* Links del dropdown */
 .dropdown-menu a {
-    padding: 12px 18px;
-    text-decoration: none;
-    color: var(--tech-grey);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(209,209,209,0.05);
-    transition: background 0.2s ease, color 0.2s ease;
+    margin: 0 !important; /* Reset de márgenes del nav principal */
+    padding: 15px 20px;
+    font-size: 11px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-.dropdown-menu a:hover {
-    background-color: rgba(255,255,255,0.05);
-    color: var(--warning-orange);
+.dropdown-menu a::after {
+    display: none !important; /* Elimina el | dentro del menú */
+}
+
+/* ================= FORMULARIOS ================= */
+input, textarea {
+    width: 100%;
+    padding: 15px;
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: var(--warning-orange);
+    outline: none;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px;
+    }
+
+    .navbar a[href="index.html"]::after {
+        display: none; /* Quitamos el | en móviles para ahorrar espacio */
+    }
+
+    .navbar a, .dropbtn {
+        margin-left: 15px;
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 0 30px;
+        text-align: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
